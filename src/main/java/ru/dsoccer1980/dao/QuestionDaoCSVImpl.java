@@ -3,9 +3,9 @@ package ru.dsoccer1980.dao;
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 import ru.dsoccer1980.model.Question;
+import ru.dsoccer1980.util.Localization;
 import ru.dsoccer1980.util.exception.NotFoundException;
 
 import java.io.BufferedReader;
@@ -13,17 +13,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Repository
 public class QuestionDaoCSVImpl implements QuestionDao {
 
     @Value("${file.name}")
     private String FILENAME;
+    private Localization localization;
+
     @Autowired
-    private MessageSource messageSource;
-    @Value("${locale.prop}")
-    private String locale;
+    public void setLocalization(Localization localization) {
+        this.localization = localization;
+    }
 
     @Override
     public List<Question> getAllQuestions() {
@@ -33,10 +34,7 @@ public class QuestionDaoCSVImpl implements QuestionDao {
              CSVReader csvReader = new CSVReader(reader)) {
             List<String[]> records = csvReader.readAll();
             for (String[] record : records) {
-                String questionText = messageSource.getMessage(
-                        record[1],
-                        null,
-                        new Locale(locale));
+                String questionText = localization.getMessage(record[1]);
                 questions.add(new Question(Integer.valueOf(record[0]), questionText, record[2]));
             }
         } catch (IOException e) {

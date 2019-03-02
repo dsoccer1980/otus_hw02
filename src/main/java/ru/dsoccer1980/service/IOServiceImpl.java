@@ -1,6 +1,7 @@
 package ru.dsoccer1980.service;
 
 import org.springframework.stereotype.Service;
+import ru.dsoccer1980.util.exception.NotFoundException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,8 +16,7 @@ public class IOServiceImpl implements IOService {
         try {
             return bufferedReader.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new NotFoundException(e.getMessage());
         }
     }
 
