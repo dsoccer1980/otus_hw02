@@ -1,7 +1,6 @@
 package ru.dsoccer1980.dao;
 
 import com.opencsv.CSVReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import ru.dsoccer1980.model.Question;
@@ -19,10 +18,9 @@ public class QuestionDaoCSVImpl implements QuestionDao {
 
     @Value("${file.name}")
     private String FILENAME;
-    private Localization localization;
+    private final Localization localization;
 
-    @Autowired
-    public void setLocalization(Localization localization) {
+    public QuestionDaoCSVImpl(Localization localization) {
         this.localization = localization;
     }
 

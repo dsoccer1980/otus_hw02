@@ -1,6 +1,5 @@
 package ru.dsoccer1980.service;
 
-import org.springframework.beans.factory.annotation.Autowired;;
 import org.springframework.stereotype.Service;
 import ru.dsoccer1980.model.Question;
 import ru.dsoccer1980.util.Localization;
@@ -12,18 +11,13 @@ public class TestingServiceImpl implements TestingService {
 
     private final QuestionService questionService;
     private final IOService ioService;
-    private Localization localization;
+    private final Localization localization;
     private int rightAnswersCount = 0;
 
-
-    @Autowired
-    public void setLocalization(Localization localization) {
-        this.localization = localization;
-    }
-
-    public TestingServiceImpl(QuestionService questionService, IOService ioService) {
+    public TestingServiceImpl(QuestionService questionService, IOService ioService, Localization localization) {
         this.questionService = questionService;
         this.ioService = ioService;
+        this.localization = localization;
     }
 
     @Override

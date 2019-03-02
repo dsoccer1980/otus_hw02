@@ -1,6 +1,5 @@
 package ru.dsoccer1980.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.dsoccer1980.util.Localization;
 
@@ -11,18 +10,14 @@ import java.io.InputStreamReader;
 @Service
 public class RunTesting {
 
-    private TestingService testingService;
-    private IOService ioService;
-    private Localization localization;
+    private final TestingService testingService;
+    private final IOService ioService;
+    private final Localization localization;
 
-    @Autowired
-    public void setLocalization(Localization localization) {
-        this.localization = localization;
-    }
-
-    public RunTesting(TestingService testingService, IOService ioService) {
+    public RunTesting(TestingService testingService, IOService ioService, Localization localization) {
         this.testingService = testingService;
         this.ioService = ioService;
+        this.localization = localization;
     }
 
     public void run() throws IOException {
