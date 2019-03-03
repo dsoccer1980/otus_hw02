@@ -28,4 +28,8 @@ public class Localization {
                 args,
                 locale);
     }
+
+    public Locale getLocale() {
+        return locale;
+    }
 }

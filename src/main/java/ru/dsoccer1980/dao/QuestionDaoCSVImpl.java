@@ -10,14 +10,16 @@ import ru.dsoccer1980.util.exception.NotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class QuestionDaoCSVImpl implements QuestionDao {
 
     @Value("${file.name}")
-    private String FILENAME;
+    private String fileName;
     private final Localization localization;
 
     public QuestionDaoCSVImpl(Localization localization) {
@@ -26,19 +28,24 @@ public class QuestionDaoCSVImpl implements QuestionDao {
 
     @Override
     public List<Question> getAllQuestions() {
+        String filenameLocale = MessageFormat.format(fileName, getPrefix());
         ClassLoader classLoader = getClass().getClassLoader();
         List<Question> questions = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(classLoader.getResource(FILENAME).getFile()));
+        try (BufferedReader reader = new BufferedReader(new FileReader(classLoader.getResource(filenameLocale).getFile()));
              CSVReader csvReader = new CSVReader(reader)) {
             List<String[]> records = csvReader.readAll();
             for (String[] record : records) {
-                String questionText = localization.getMessage(record[1]);
-                questions.add(new Question(Integer.valueOf(record[0]), questionText, record[2]));
+                questions.add(new Question(Integer.valueOf(record[0]), record[1], record[2]));
             }
         } catch (IOException e) {
             throw new NotFoundException(e.getMessage());
         }
         return questions;
+    }
+
+    private String getPrefix() {
+        Locale locale = localization.getLocale();
+        return locale.getLanguage().equals("en") ? "" : "_" + locale.toString();
     }
 
 }
