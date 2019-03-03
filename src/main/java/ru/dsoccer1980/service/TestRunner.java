@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @Service
-public class RunTesting {
+public class TestRunner {
 
     private final TestingService testingService;
     private final IOService ioService;
     private final Localization localization;
 
-    public RunTesting(TestingService testingService, IOService ioService, Localization localization) {
+    public TestRunner(TestingService testingService, IOService ioService, Localization localization) {
         this.testingService = testingService;
         this.ioService = ioService;
         this.localization = localization;

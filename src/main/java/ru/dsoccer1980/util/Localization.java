@@ -1,6 +1,5 @@
 package ru.dsoccer1980.util;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +9,7 @@ import java.util.Locale;
 public class Localization {
 
     private MessageSource messageSource;
-    @Value("${locale.prop}")
-    protected String locale;
+    private Locale locale = Locale.getDefault();
 
     public Localization(MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -21,13 +19,13 @@ public class Localization {
         return messageSource.getMessage(
                 property,
                 null,
-                new Locale(locale));
+                locale);
     }
 
     public String getMessage(String property, Object[] args) {
         return messageSource.getMessage(
                 property,
                 args,
-                new Locale(locale));
+                locale);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import ru.dsoccer1980.service.RunTesting;
+import ru.dsoccer1980.service.TestRunner;
 
 import java.io.IOException;
 
@@ -31,8 +31,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
 
-        RunTesting runTesting = context.getBean(RunTesting.class);
-        runTesting.run();
+        TestRunner testRunner = context.getBean(TestRunner.class);
+        testRunner.run();
 
         context.close();
     }
