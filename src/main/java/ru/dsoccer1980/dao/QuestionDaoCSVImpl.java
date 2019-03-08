@@ -1,8 +1,8 @@
 package ru.dsoccer1980.dao;
 
 import com.opencsv.CSVReader;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import ru.dsoccer1980.configs.YamlProps;
 import ru.dsoccer1980.model.Question;
 import ru.dsoccer1980.util.Localization;
 import ru.dsoccer1980.util.exception.NotFoundException;
@@ -18,17 +18,17 @@ import java.util.Locale;
 @Repository
 public class QuestionDaoCSVImpl implements QuestionDao {
 
-    @Value("${file.name}")
-    private String fileName;
     private final Localization localization;
+    private YamlProps props;
 
-    public QuestionDaoCSVImpl(Localization localization) {
+    public QuestionDaoCSVImpl(Localization localization, YamlProps props) {
         this.localization = localization;
+        this.props = props;
     }
 
     @Override
     public List<Question> getAllQuestions() {
-        String filenameLocale = MessageFormat.format(fileName, getPrefix());
+        String filenameLocale = MessageFormat.format(props.getFilename(), getPrefix());
         ClassLoader classLoader = getClass().getClassLoader();
         List<Question> questions = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(classLoader.getResource(filenameLocale).getFile()));
