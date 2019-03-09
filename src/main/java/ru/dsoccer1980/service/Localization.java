@@ -1,4 +1,4 @@
-package ru.dsoccer1980.util;
+package ru.dsoccer1980.service;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;

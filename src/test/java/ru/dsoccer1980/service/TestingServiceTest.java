@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import ru.dsoccer1980.model.Question;
-import ru.dsoccer1980.util.Localization;
 
 import java.util.Collections;
 import java.util.List;
