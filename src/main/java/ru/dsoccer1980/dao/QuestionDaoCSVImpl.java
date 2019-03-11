@@ -7,9 +7,8 @@ import ru.dsoccer1980.model.Question;
 import ru.dsoccer1980.service.Localization;
 import ru.dsoccer1980.util.exception.NotFoundException;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +29,11 @@ public class QuestionDaoCSVImpl implements QuestionDao {
     @Override
     public List<Question> getAllQuestions() {
         String filenameLocale = MessageFormat.format(props.getFilename(), getPrefix());
-        ClassLoader classLoader = getClass().getClassLoader();
         List<Question> questions = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(Objects.requireNonNull(classLoader.getResource(filenameLocale), "File not found").getFile()));
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(Objects.requireNonNull(
+                        QuestionDaoCSVImpl.class.getClassLoader().getResourceAsStream(filenameLocale), "File not found"),
+                        StandardCharsets.UTF_8));
              CSVReader csvReader = new CSVReader(reader)) {
             List<String[]> records = csvReader.readAll();
             for (String[] record : records) {
