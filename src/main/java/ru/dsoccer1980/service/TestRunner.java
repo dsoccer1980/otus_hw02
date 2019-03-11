@@ -1,11 +1,8 @@
 package ru.dsoccer1980.service;
 
 import org.springframework.stereotype.Service;
-import ru.dsoccer1980.util.Localization;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 @Service
 public class TestRunner {
@@ -21,9 +18,8 @@ public class TestRunner {
     }
 
     public void run() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         ioService.write(localization.getMessage("write.name"));
-        String name = bufferedReader.readLine();
+        String name = ioService.read();
 
         testingService.showQuestions();
 
