@@ -2,7 +2,7 @@ package ru.dsoccer1980.service;
 
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.util.Locale;
 
 @Service
 public class TestRunner {
@@ -17,7 +17,11 @@ public class TestRunner {
         this.localization = localization;
     }
 
-    public void run() throws IOException {
+    public void run(Locale locale) {
+        if (locale != null) {
+            localization.setLocale(locale);
+        }
+
         ioService.write(localization.getMessage("write.name"));
         String name = ioService.read();
 
@@ -27,5 +31,9 @@ public class TestRunner {
                 "write.result",
                 new String[]{name, String.valueOf(testingService.getResult())}));
 
+    }
+
+    public void run() {
+        run(null);
     }
 }
