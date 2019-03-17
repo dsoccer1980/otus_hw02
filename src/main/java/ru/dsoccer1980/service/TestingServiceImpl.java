@@ -11,7 +11,7 @@ public class TestingServiceImpl implements TestingService {
     private final QuestionService questionService;
     private final IOService ioService;
     private final Localization localization;
-    private int rightAnswersCount = 0;
+    private int rightAnswersCount;
 
     public TestingServiceImpl(QuestionService questionService, IOService ioService, Localization localization) {
         this.questionService = questionService;
@@ -22,6 +22,7 @@ public class TestingServiceImpl implements TestingService {
     @Override
     public void showQuestions() {
         List<Question> questions = questionService.getAllQuestions();
+        rightAnswersCount = 0;
 
         for (Question question : questions) {
             ioService.write(question.getQuestion());
