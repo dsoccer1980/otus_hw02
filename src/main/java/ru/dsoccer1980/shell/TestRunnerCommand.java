@@ -18,7 +18,7 @@ public class TestRunnerCommand {
         this.testRunner = testRunner;
     }
 
-    @ShellMethod("Test runner")
+    @ShellMethod("Test runner:  run [--locale [ru_Ru|en]]")
     public void run(
             @ShellOption(defaultValue = "en") String locale
     ) {

@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.shell.Shell;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.dsoccer1980.util.ConfigurableInputStream;
 
@@ -27,14 +28,15 @@ public class TestRunnerSpringBootTest {
     @Autowired
     private IOService ioService;
 
+    @MockBean
+    private Shell shell;
+
     private TestRunner testRunner;
     private ConfigurableInputStream in;
-    private ByteArrayOutputStream out;
 
     @BeforeEach
     public void setup() throws IOException {
         in = new ConfigurableInputStream();
-
         System.setIn(in);
 
         testRunner = new TestRunner(testingService, ioService, localization);
